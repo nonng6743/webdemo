@@ -53,6 +53,7 @@ const BitcoinChart = () => {
 
   const chartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: { position: "top" as const },
       title: { display: true, text: "Real-time Bitcoin Price" },
@@ -65,7 +66,10 @@ const BitcoinChart = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <Line data={chartData} options={chartOptions} />
+      {/* กรอบพื้นหลัง */}
+      <div className="relative h-80 sm:h-96 lg:h-[500px] bg-white border border-gray-300 shadow-md rounded-lg p-4">
+        <Line data={chartData} options={chartOptions} />
+      </div>
     </div>
   );
 };
