@@ -2,9 +2,14 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname(); // ใช้เพื่อดึงเส้นทางปัจจุบัน
+
+  // ฟังก์ชันตรวจสอบว่าลิงก์ตรงกับเส้นทางปัจจุบันหรือไม่
+  const isActive = (href: string) => pathname === href;
 
   return (
     <nav className="bg-white border-b border-gray-200 shadow-sm">
@@ -54,28 +59,50 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-6">
             <Link
               href="/"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              className={`px-3 py-2 rounded-md text-sm font-medium ${
+                isActive("/") ? "text-blue-600 font-bold" : "text-gray-700 hover:text-blue-600"
+              }`}
             >
               Home
             </Link>
             <Link
               href="/about"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              className={`px-3 py-2 rounded-md text-sm font-medium ${
+                isActive("/about") ? "text-blue-600 font-bold" : "text-gray-700 hover:text-blue-600"
+              }`}
             >
               About
             </Link>
             <Link
               href="/contact"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              className={`px-3 py-2 rounded-md text-sm font-medium ${
+                isActive("/contact")
+                  ? "text-blue-600 font-bold"
+                  : "text-gray-700 hover:text-blue-600"
+              }`}
             >
               Contact
             </Link>
-            <button className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+            <Link
+              href="/signin"
+              className={`px-4 py-2 text-sm font-medium rounded-md text-center ${
+                isActive("/signin")
+                  ? "text-white bg-blue-700 font-bold"
+                  : "text-white bg-blue-500 hover:bg-blue-700"
+              }`}
+            >
               Sign In
-            </button>
-            <button className="w-full px-4 py-2 text-sm font-medium text-blue-600 border border-blue-600 rounded-md hover:bg-blue-50">
+            </Link>
+            <Link
+              href="/register"
+              className={`px-4 py-2 text-sm font-medium rounded-md text-center ${
+                isActive("/register")
+                  ? "text-blue-600 border-blue-700 font-bold"
+                  : "text-blue-600 border border-blue-600 hover:bg-blue-50"
+              }`}
+            >
               Register
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -89,28 +116,50 @@ export default function Navbar() {
         <div className="px-4 pt-4 pb-6 space-y-4">
           <Link
             href="/"
-            className="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium"
+            className={`block text-base font-medium px-3 py-2 rounded-md ${
+              isActive("/") ? "text-blue-600 font-bold" : "text-gray-700 hover:text-blue-600"
+            }`}
           >
             Home
           </Link>
           <Link
             href="/about"
-            className="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium"
+            className={`block text-base font-medium px-3 py-2 rounded-md ${
+              isActive("/about") ? "text-blue-600 font-bold" : "text-gray-700 hover:text-blue-600"
+            }`}
           >
             About
           </Link>
           <Link
             href="/contact"
-            className="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium"
+            className={`block text-base font-medium px-3 py-2 rounded-md ${
+              isActive("/contact")
+                ? "text-blue-600 font-bold"
+                : "text-gray-700 hover:text-blue-600"
+            }`}
           >
             Contact
           </Link>
-          <button className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+          <Link
+            href="/signin"
+            className={`block w-full px-4 py-2 text-sm font-medium rounded-md text-center ${
+              isActive("/signin")
+                ? "text-white bg-blue-700 font-bold"
+                : "text-white bg-blue-600 hover:bg-blue-700"
+            }`}
+          >
             Sign In
-          </button>
-          <button className="w-full px-4 py-2 text-sm font-medium text-blue-600 border border-blue-600 rounded-md hover:bg-blue-50">
+          </Link>
+          <Link
+            href="/register"
+            className={`block w-full px-4 py-2 text-sm font-medium rounded-md text-center ${
+              isActive("/register")
+                ? "text-blue-600 border-blue-700 font-bold"
+                : "text-blue-600 border border-blue-600 hover:bg-blue-50"
+            }`}
+          >
             Register
-          </button>
+          </Link>
         </div>
       </div>
     </nav>
